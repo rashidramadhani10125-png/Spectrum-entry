@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spectrum Client Registration</title>
+  <style>
+    body { font-family: Arial; margin: 40px; }
+    input, button { margin: 5px 0; padding: 8px; width: 250px; }
+    table { border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+  </style>
+</head>
+<body>
+
+<h2>Register Client</h2>
+
+<input id="firstName" placeholder="First Name" required /><br>
+<input id="lastName" placeholder="Last Name" required /><br>
+<input id="nrc" placeholder="NRC Number" required /><br>
+<input id="phone" placeholder="Phone Number" required /><br>
+<input id="email" placeholder="Email (optional)" /><br>
+<button onclick="registerClient()">Register</button>
+
+<h2>Registered Clients</h2>
+<button onclick="loadClients()">Refresh List</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>NRC</th>
+      <th>Phone</th>
+      <th>Date Created</th>
+    </tr>
+  </thead>
+  <tbody id="clientsTable"></tbody>
+</table>
+
+<script>
+    const API = 'http://localhost:3000/api/clients';
+    
+function registerClient() {
+  const data = {
+    firstName: firstName.value,
+    lastName: lastName.value,
+    nrc: nrc.value,
+    phone: phone.value,
+    email: email.value
+  };
+
+  fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(() => {
+    alert('Client registered');
+    loadClients();
+  });
+}
+
+function loadClients() {
+  fetch(API)
+    .then(res => res.json())
+    .then(data => {
+      clientsTable.innerHTML = '';
+      data.forEach(c => {
+        clientsTable.innerHTML += `
+          <tr>
+            <td>${c.firstName} ${c.lastName}</td>
+            <td>${c.nrc}</td>
+            <td>${c.phone}</td>
+            <td>${c.createdAt}</td>
+          </tr>
+        `;
+      });
+    });
+}
+
+loadClients();
+</script>
+
+</body>
+</html>
+
