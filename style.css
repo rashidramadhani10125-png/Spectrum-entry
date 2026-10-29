@@ -1,0 +1,111 @@
+/* Modern Dark Theme Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212; /* Deep dark background */
+    color: #e0e0e0; /* Off-white text for readability */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+h1, h2 {
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+
+input {
+    width: 100%;
+    padding: 12px;
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+input::placeholder {
+    color: #888;
+}
+
+input:focus {
+    border-color: #4a90e2; /* Vibrant blue accent */
+    outline: none;
+    background-color: #333;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2); /* Glow effect */
+}
+
+/* Buttons */
+button {
+    background-color: #4a90e2; /* Blue accent */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    grid-column: span 2; /* Makes the button take full width */
+}
+
+button:hover {
+    background-color: #357abd; /* Darker blue on hover */
+}
+
+/* Refresh Button Styling */
+.refresh-btn {
+    background-color: #444;
+    width: auto;
+    margin-bottom: 15px;
+}
+.refresh-btn:hover {
+    background-color: #555;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1e1e1e;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+th {
+    background-color: #2c2c2c;
+    color: #4a90e2; /* Blue text for headers */
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+tr:hover {
+    background-color: #2a2a2a; /* Highlight row on hover */
+}
+
+/* Delete Button */
+.delete-btn {
+    background-color: #e74c3c;
+    padding: 6px 12px;
+    font-size: 12px;
+    grid-column: auto; /* Override the form button grid rule */
+}
+.delete-btn:hover {
+    background-color: #c0392b;
+}
