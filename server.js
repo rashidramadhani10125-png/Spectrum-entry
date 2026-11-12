@@ -13,7 +13,7 @@ app.use(express.static(__dirname));
 const db = new Pool({
     host: 'localhost',
     user: 'postgres',
-    password: 'Input password', 
+    password: '200525', 
     database: 'client_db',
     port: 5432 
 });

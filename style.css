@@ -88,7 +88,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     background-color: #1e1e1e;
-    animation: SlideUpFade 0.4 ease-out forwards;
+    animation: SlideUpFade 0.3 ease-out forwards;
 }
 
 th, td {
@@ -124,7 +124,7 @@ tr:hover {
 #clientsTable {
     opacity: 0;
     transform: translateY(20px);
-    animation: slideUpFade ease-in-out forwards 0.5s;
+    animation: slideUpFade ease-in-out forwards 0.3s;
 }
 
 #clientsTable.show {

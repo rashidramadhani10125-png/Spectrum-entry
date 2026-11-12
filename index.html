@@ -13,13 +13,13 @@
 <body>
 
 <h2>Register Client</h2>
-
 <input id="firstName" placeholder="First Name" required /><br>
 <input id="lastName" placeholder="Last Name" required /><br>
 <input id="nrc" placeholder="NRC Number" required /><br>
 <input id="phone" placeholder="Phone Number" required /><br>
 <input id="email" placeholder="Email (optional)" /><br>
 <button id = "registerBtn" onclick="registerClient()">Register</button>
+
 
 <p id ="errorText" style="color: #e74c3c; font-weight: bold; margin-top: 15px; text-align: center; display: none;"></p>
 
@@ -107,7 +107,7 @@ function loadClients() {
 
             setTimeout(() => {
                 clientsTable.classList.add('show');
-            }, 70); 
+            }, 50); 
         });
 }
 
