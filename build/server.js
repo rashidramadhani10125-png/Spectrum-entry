@@ -5,13 +5,12 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 const app = express();
 const port = Number(process.env.PORT ?? 3000);
-const currentDirectory = dirname(fileURLToPath(import.meta.url));
-const staticDirectory = resolve(currentDirectory, "../dist");
+const staticDirectory = resolve(dirname(fileURLToPath(import.meta.url)), "../dist");
 const db = new Pool({
     host: process.env.DB_HOST ?? "localhost",
     port: Number(process.env.DB_PORT ?? 5432),
     user: process.env.DB_USER ?? "postgres",
-    password: process.env.DB_PASSWORD ?? "password",
+    password: process.env.DB_PASSWORD ?? "200525",
     database: process.env.DB_NAME ?? "client_db",
 });
 app.use(cors());
@@ -30,11 +29,11 @@ app.post("/api/clients", async (req, res) => {
         return;
     }
     try {
-        const existingClient = await db.query("SELECT id FROM clients WHERE nrc = $1", [nrc]);
-        if (existingClient.rowCount) {
-            res
-                .status(400)
-                .json({ message: "Client with this NRC already exists" });
+        const existing = await db.query("SELECT id FROM clients WHERE nrc = $1", [
+            nrc,
+        ]);
+        if (existing.rowCount) {
+            res.status(400).json({ message: "Client with this NRC already exists" });
             return;
         }
         const result = await db.query(`INSERT INTO clients (first_name, last_name, nrc, phone, email)
@@ -58,7 +57,8 @@ app.post("/api/clients", async (req, res) => {
 });
 app.get("/api/clients", async (_req, res) => {
     try {
-        const result = await db.query("SELECT id, first_name, last_name, nrc, phone, email, created_at FROM clients ORDER BY created_at DESC");
+        const result = await db.query(`SELECT id, first_name, last_name, nrc, phone, email, created_at
+       FROM clients ORDER BY created_at DESC`);
         res.status(200).json(result.rows);
     }
     catch (error) {

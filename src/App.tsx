@@ -112,9 +112,20 @@ function App() {
   }
 
   return (
-    <main>
-      <h1>Register Client</h1>
-      <form onSubmit={registerClient}>
+    <main className="page">
+      <header className="page-header">
+        <p className="eyebrow">Spectrum Credit Limited</p>
+        <h1>Client registration</h1>
+      </header>
+
+      <section className="panel" aria-labelledby="register-heading">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">New record</p>
+            <h2 id="register-heading">Client details</h2>
+          </div>
+        </div>
+        <form className="client-form" onSubmit={registerClient}>
         <label>
           First Name
           <input
@@ -162,42 +173,62 @@ function App() {
         <button disabled={saving}>
           {saving ? "Registering..." : "Register"}
         </button>
-      </form>
+        </form>
 
-      {error && <p role="alert">Error: {error}</p>}
-      {notice && <p role="status">{notice}</p>}
+        {error && (
+          <p className="feedback error" role="alert">
+            {error}
+          </p>
+        )}
+        {notice && (
+          <p className="feedback success" role="status">
+            {notice}
+          </p>
+        )}
+      </section>
 
-      <h2>Registered Clients</h2>
-      <button
-        className="refresh-btn"
-        disabled={loading}
-        onClick={() => void loadClients()}
-        type="button"
-      >
-        {loading ? "Loading..." : "Refresh List"}
-      </button>
+      <section className="panel records-panel" aria-labelledby="records-heading">
+        <div className="section-heading records-heading">
+          <div>
+            <p className="eyebrow">Directory</p>
+            <h2 id="records-heading">Registered clients</h2>
+          </div>
+          <button
+            className="secondary-button"
+            disabled={loading}
+            onClick={() => void loadClients()}
+            type="button"
+          >
+            {loading ? "Refreshing..." : "Refresh list"}
+          </button>
+        </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">NRC</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Email</th>
-            <th scope="col">Date Registered</th>
-          </tr>
-        </thead>
-        <tbody id="clientsTable" className={loading ? "" : "show"}>
-          {loading ? (
+        <div className="table-scroll">
+          <table>
+            <thead>
             <tr>
-              <td colSpan={5}>Loading clients...</td>
+                <th scope="col">Name</th>
+                <th scope="col">NRC</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Date registered</th>
             </tr>
-          ) : clients.length === 0 ? (
-            <tr>
-              <td colSpan={5}>No clients registered yet.</td>
-            </tr>
-          ) : (
-            clients.map((client) => (
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td className="empty-state" colSpan={5}>
+                    Loading clients...
+                  </td>
+                </tr>
+              ) : clients.length === 0 ? (
+                <tr>
+                  <td className="empty-state" colSpan={5}>
+                    No clients registered yet.
+                  </td>
+                </tr>
+              ) : (
+                clients.map((client) => (
               <tr key={client.id}>
                 <td>
                   {client.first_name} {client.last_name}
@@ -207,10 +238,12 @@ function App() {
                 <td>{client.email || "N/A"}</td>
                 <td>{new Date(client.created_at).toLocaleString()}</td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </main>
   );
 }
